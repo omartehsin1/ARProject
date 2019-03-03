@@ -10,7 +10,8 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class FullMapViewController: UIViewController {
+class FullMapViewController: UIViewController, UISearchBarDelegate {
+    @IBOutlet var searchBarMap: UISearchBar!
     
     let locationManager = CLLocationManager()
     let regionInMeters: Double = 10000
@@ -21,6 +22,8 @@ class FullMapViewController: UIViewController {
         super.viewDidLoad()
         
         checkLocationServices()
+        
+        searchBarMap.delegate = self
 
         // Do any additional setup after loading the view.
     }
@@ -68,6 +71,34 @@ class FullMapViewController: UIViewController {
             break
             
         }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBarMap.resignFirstResponder()
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(searchBarMap.text!) {
+            (placemarks:[CLPlacemark]?, error:Error?) in
+            if error == nil {
+                let placemark = placemarks?.first
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = (placemark?.location?.coordinate)!
+                
+                annotation.title = self.searchBarMap.text!
+                
+                let span = MKCoordinateSpan(latitudeDelta: 0.075, longitudeDelta: 0.075)
+                let region = MKCoordinateRegion(center: annotation.coordinate, span: span)
+                
+                self.fullMapView.setRegion(region, animated: true)
+                
+                self.fullMapView.addAnnotation(annotation)
+                self.fullMapView.selectAnnotation(annotation, animated: true)
+                
+            } else {
+                print(error?.localizedDescription ?? "error")
+            }
+        }
+        print("searching...\(searchBarMap.text!)")
+        
     }
     
 
