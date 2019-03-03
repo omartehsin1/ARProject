@@ -23,12 +23,14 @@
                             </arscnView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="sRd-Nz-cQD">
                                 <rect key="frame" x="215" y="507" width="160" height="160"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="dGo-gM-pgd"/>
                                     <constraint firstAttribute="height" constant="160" id="nMH-4S-ghn"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="BV1-FR-VrT" id="ddd-Uz-efo"/>
+                                    <outletCollection property="gestureRecognizers" destination="e1w-m9-U9c" appends="YES" id="i9w-BF-yDT"/>
                                 </connections>
                             </mapView>
                         </subviews>
@@ -53,8 +55,45 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="e1w-m9-U9c">
+                    <connections>
+                        <segue destination="gRc-tH-9a7" kind="show" id="uU1-FU-Coj"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="133.59999999999999" y="133.5832083958021"/>
+        </scene>
+        <!--Full Map View Controller-->
+        <scene sceneID="rYP-IY-hP2">
+            <objects>
+                <viewController id="gRc-tH-9a7" customClass="FullMapViewController" customModule="ARProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Khq-qt-M8c">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="KYq-RX-IoV">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <connections>
+                                    <outlet property="delegate" destination="gRc-tH-9a7" id="n6A-qp-XZD"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="KYq-RX-IoV" firstAttribute="trailing" secondItem="GLh-hZ-4lE" secondAttribute="trailing" id="QY3-6j-Ds7"/>
+                            <constraint firstItem="KYq-RX-IoV" firstAttribute="leading" secondItem="GLh-hZ-4lE" secondAttribute="leading" id="jip-vO-tIY"/>
+                            <constraint firstItem="KYq-RX-IoV" firstAttribute="top" secondItem="Khq-qt-M8c" secondAttribute="top" id="uGx-Ok-aMP"/>
+                            <constraint firstItem="KYq-RX-IoV" firstAttribute="bottom" secondItem="GLh-hZ-4lE" secondAttribute="bottom" id="wCt-hk-rGb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="GLh-hZ-4lE"/>
+                    </view>
+                    <connections>
+                        <outlet property="fullMapView" destination="KYq-RX-IoV" id="vCx-15-KOq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Igm-aG-lfi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1047" y="134"/>
         </scene>
     </scenes>
 </document>
