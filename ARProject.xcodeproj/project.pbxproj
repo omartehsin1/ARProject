@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD9EAEE2222C53EE00E7277C /* FullMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9EAEE1222C53EE00E7277C /* FullMapViewController.swift */; };
 		CDDBF2EB222B48B300F7678B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDBF2EA222B48B300F7678B /* AppDelegate.swift */; };
 		CDDBF2ED222B48B300F7678B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = CDDBF2EC222B48B300F7678B /* art.scnassets */; };
 		CDDBF2EF222B48B300F7678B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDBF2EE222B48B300F7678B /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CD9EAEE1222C53EE00E7277C /* FullMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullMapViewController.swift; sourceTree = "<group>"; };
 		CDDBF2E7222B48B300F7678B /* ARProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDDBF2EA222B48B300F7678B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDDBF2EC222B48B300F7678B /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 				CDDBF2EC222B48B300F7678B /* art.scnassets */,
 				CDDBF2EE222B48B300F7678B /* ViewController.swift */,
 				CDDBF2F0222B48B300F7678B /* Main.storyboard */,
+				CD9EAEE1222C53EE00E7277C /* FullMapViewController.swift */,
 				CDDBF2F3222B48B300F7678B /* Assets.xcassets */,
 				CDDBF2F5222B48B300F7678B /* LaunchScreen.storyboard */,
 				CDDBF2F8222B48B300F7678B /* Info.plist */,
@@ -141,6 +144,7 @@
 			files = (
 				CDDBF2EF222B48B300F7678B /* ViewController.swift in Sources */,
 				CDDBF2EB222B48B300F7678B /* AppDelegate.swift in Sources */,
+				CD9EAEE2222C53EE00E7277C /* FullMapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
