@@ -13,9 +13,11 @@ import CoreLocation
 class FullMapViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet var searchBarMap: UISearchBar!
     @IBOutlet weak var goButton: UIButton!
+    @IBOutlet weak var addressLabel: UILabel!
     
     let locationManager = CLLocationManager()
     let regionInMeters: Double = 10000
+    var previousLocation: CLLocation?
 
     @IBOutlet weak var fullMapView: MKMapView!
     
@@ -58,10 +60,7 @@ class FullMapViewController: UIViewController, UISearchBarDelegate {
     func checkLocationAuthorization() {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse:
-            fullMapView.showsUserLocation = true
-            centerViewOnUserLocation()
-            locationManager.startUpdatingLocation()
-            break
+            startTrackingUserLocation()
         case .denied:
             //show alert to turn on permissions
             break
@@ -74,6 +73,13 @@ class FullMapViewController: UIViewController, UISearchBarDelegate {
             break
             
         }
+    }
+    
+    func startTrackingUserLocation() {
+        fullMapView.showsUserLocation = true
+        centerViewOnUserLocation()
+        locationManager.startUpdatingLocation()
+        previousLocation = getCentreLocation(for: fullMapView)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -157,13 +163,13 @@ class FullMapViewController: UIViewController, UISearchBarDelegate {
 
 extension FullMapViewController: CLLocationManagerDelegate {
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        let region = MKCoordinateRegion.init(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-        fullMapView.setRegion(region, animated: true)
-        
-    }
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        guard let location = locations.last else { return }
+//        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+//        let region = MKCoordinateRegion.init(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+//        fullMapView.setRegion(region, animated: true)
+//
+//    }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAuthorization()
@@ -172,6 +178,33 @@ extension FullMapViewController: CLLocationManagerDelegate {
 }
 
 extension FullMapViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        let centre = getCentreLocation(for: mapView)
+        let geoCoder = CLGeocoder()
+        guard let previousLocation = self.previousLocation else { return }
+        
+        guard centre.distance(from: previousLocation) > 50 else { return }
+        self.previousLocation = centre
+        
+        geoCoder.reverseGeocodeLocation(centre) { [weak self] (placemarks, error) in
+            guard let self = self else {return }
+            
+            if let _ = error {
+                return
+            }
+            
+            guard let placemark = placemarks?.first else {
+                return
+            }
+            let streetNumber = placemark.subThoroughfare ?? ""
+            let streetName = placemark.thoroughfare ?? ""
+            
+            DispatchQueue.main.async {
+                self.addressLabel.text = "\(streetNumber) \(streetName)"
+            }
+        }
+    }
     func mapView(_ mapView: MKMapView, redererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay as! MKPolyline)
         renderer.strokeColor = UIColor.blue
