@@ -148,6 +148,7 @@ class FullMapViewController: UIViewController, UISearchBarDelegate {
     @IBAction func goButtonPressed(_ sender: Any) {
 
         getDirections()
+        //fixing button
     }
     
 
