@@ -18,6 +18,9 @@ class FullMapViewController: UIViewController, UISearchBarDelegate {
     let locationManager = CLLocationManager()
     let regionInMeters: Double = 10000
     var previousLocation: CLLocation?
+    
+    let geoCoder = CLGeocoder()
+    var directionsArray: [MKDirections] = []
 
     @IBOutlet weak var fullMapView: MKMapView!
     
@@ -125,6 +128,7 @@ class FullMapViewController: UIViewController, UISearchBarDelegate {
         
         let request = createDirectionsRequest(from: location)
         let directions = MKDirections(request: request)
+        resetMapView(withNew: directions)
         //find a way to implement live ETA that may hover over the AR Path
         
         directions.calculate { [unowned self] (response, error) in
@@ -146,9 +150,15 @@ class FullMapViewController: UIViewController, UISearchBarDelegate {
         request.source = MKMapItem(placemark: startingLocation)
         request.destination = MKMapItem(placemark: destination)
         request.transportType = .walking
-        request.requestsAlternateRoutes = true
+        request.requestsAlternateRoutes = false
         
         return request
+    }
+    
+    func resetMapView(withNew directions: MKDirections) {
+        fullMapView.removeOverlay(fullMapView.overlays as! MKOverlay)
+        directionsArray.append(directions)
+        let _ = directionsArray.map { $0.cancel()}
     }
     
     @IBAction func goButtonPressed(_ sender: Any) {
@@ -186,6 +196,8 @@ extension FullMapViewController: MKMapViewDelegate {
         
         guard centre.distance(from: previousLocation) > 50 else { return }
         self.previousLocation = centre
+        
+        geoCoder.cancelGeocode()
         
         geoCoder.reverseGeocodeLocation(centre) { [weak self] (placemarks, error) in
             guard let self = self else {return }
