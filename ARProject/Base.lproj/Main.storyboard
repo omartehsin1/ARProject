@@ -99,7 +99,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Go"/>
                                 <connections>
-                                    <action selector="goButtonPressed:" destination="gRc-tH-9a7" eventType="touchUpInside" id="HjN-vv-Lhc"/>
+                                    <action selector="goButtonTapped:" destination="gRc-tH-9a7" eventType="touchUpInside" id="VGH-Iv-5Eo"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -124,8 +124,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addressLabel" destination="DpA-Ei-i4z" id="Jnf-b5-ktQ"/>
-                        <outlet property="fullMapView" destination="KYq-RX-IoV" id="vCx-15-KOq"/>
                         <outlet property="goButton" destination="SbY-0w-imD" id="NKY-D4-SjM"/>
+                        <outlet property="mapView" destination="KYq-RX-IoV" id="vCx-15-KOq"/>
                         <outlet property="searchBarMap" destination="iPr-lV-dqb" id="pPr-xJ-Z1k"/>
                     </connections>
                 </viewController>
