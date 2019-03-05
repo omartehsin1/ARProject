@@ -28,8 +28,12 @@ class FullMapViewController: UIViewController, UISearchBarDelegate {
         super.viewDidLoad()
         goButton.layer.cornerRadius = goButton.frame.size.height/2
         checkLocationServices()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backTapped))
     }
-    
+    @objc func backTapped() {
+        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
+    }
     
     
     func setupLocationManager() {
