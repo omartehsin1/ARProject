@@ -29,6 +29,7 @@ class FullMapViewController: UIViewController, UISearchBarDelegate {
         goButton.layer.cornerRadius = goButton.frame.size.height/2
         checkLocationServices()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backTapped))
+        searchBarSearchButtonClicked(searchBarMap)
     }
     @objc func backTapped() {
         navigationController?.popViewController(animated: true)
@@ -62,8 +63,8 @@ class FullMapViewController: UIViewController, UISearchBarDelegate {
 
      func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
      searchBarMap.resignFirstResponder()
-//     let geocoder = CLGeocoder()
-     geoCoder.geocodeAddressString(searchBarMap.text!) {
+     let geocoder = CLGeocoder()
+     geocoder.geocodeAddressString(searchBarMap.text!) {
      (placemarks:[CLPlacemark]?, error:Error?) in
      if error == nil {
      let placemark = placemarks?.first
@@ -86,7 +87,6 @@ class FullMapViewController: UIViewController, UISearchBarDelegate {
      }
      
      print("searching...\(searchBarMap.text!)")
-        getDirections()
      
      }
 
