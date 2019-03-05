@@ -60,6 +60,7 @@ class FullMapViewController: UIViewController, UISearchBarDelegate {
         }
     }
     
+
      func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
      searchBarMap.resignFirstResponder()
      let geocoder = CLGeocoder()
@@ -88,13 +89,39 @@ class FullMapViewController: UIViewController, UISearchBarDelegate {
      print("searching...\(searchBarMap.text!)")
      
      }
+
+    func alertLocationAccessNeeded() {
+        let settingsAppURL = URL(string: UIApplication.openSettingsURLString)!
+        
+        let alert = UIAlertController(
+            title: "Location access is required",
+            message: "Location access is required to provide you with directions to your destination.",
+            preferredStyle: UIAlertController.Style.alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Allow Location Access",
+                                      style: .cancel,
+                                      handler: { (alert) -> Void in
+                                        UIApplication.shared.open(settingsAppURL,
+                                                                  options: [:],
+                                                                  completionHandler: nil)
+        }))
+        
+        present(alert, animated: true, completion: nil)
+    }
+
     
     func checkLocationAuthorization() {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse:
             startTackingUserLocation()
         case .denied:
+
             // Show alert instructing them how to turn on permissions
+
+            alertLocationAccessNeeded()
+
             break
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
