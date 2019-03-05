@@ -49,6 +49,27 @@ class FullMapViewController: UIViewController {
         }
     }
     
+    func alertLocationAccessNeeded() {
+        let settingsAppURL = URL(string: UIApplication.openSettingsURLString)!
+        
+        let alert = UIAlertController(
+            title: "Location access is required",
+            message: "Location access is required to provide you with directions to your destination.",
+            preferredStyle: UIAlertController.Style.alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Allow Location Access",
+                                      style: .cancel,
+                                      handler: { (alert) -> Void in
+                                        UIApplication.shared.open(settingsAppURL,
+                                                                  options: [:],
+                                                                  completionHandler: nil)
+        }))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
     func checkLocationAuthorization() {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse:
@@ -57,7 +78,7 @@ class FullMapViewController: UIViewController {
             locationManager.startUpdatingLocation()
             break
         case .denied:
-            //show alert to turn on permissions
+            alertLocationAccessNeeded()
             break
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
