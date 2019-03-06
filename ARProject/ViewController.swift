@@ -30,8 +30,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     var myBase : SCNVector3!
     var friendBase : SCNVector3!
-    
-    
+    var destinationLocation : CLLocation!
     var locationManager = CLLocationManager()
     let regionInMeters: Double = 10000
     
@@ -76,6 +75,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.view.addSubview(button)
         self.view.addSubview(button2)
         self.view.addSubview(button3)
+        
+        
         
         
 
@@ -132,17 +133,17 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         let arrow = SCNNode(geometry: SCNPyramid(width: 0.5, height: 0.5, length: 0.5))
         let cc  = getCameraCoordinate(sceneview: sceneView)
-        arrow.position = SCNVector3(cc.x,cc.y+0.7,cc.z-0.1)
+        arrow.position = SCNVector3(cc.x,cc.y,cc.z-0.1)
         arrow.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
         arrow.geometry!.firstMaterial?.diffuse.contents  = pink
         
         let base = SCNNode(geometry: SCNBox(width: 0.3, height: 0.4, length: 0.3, chamferRadius: 0))
-        base.position = SCNVector3(cc.x,cc.y+1.05,cc.z-0.1)
+        base.position = SCNVector3(cc.x,cc.y,cc.z-0.1)
         base.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
         base.geometry!.firstMaterial?.diffuse.contents  = pink
         
         let base2 = SCNNode(geometry: SCNBox(width: 0.3, height: 0.1, length: 0.3, chamferRadius: 0))
-        base2.position = SCNVector3(cc.x,cc.y+0.0775,cc.z-0.1)
+        base2.position = SCNVector3(cc.x,cc.y,cc.z-0.1)
         base2.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
         base2.geometry!.firstMaterial?.diffuse.contents  = pink
         myBase = base2.position
@@ -150,6 +151,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.scene.rootNode.addChildNode(arrow)
         sceneView.scene.rootNode.addChildNode(base)
         sceneView.scene.rootNode.addChildNode(base2)
+        destinationLocation = CLLocation(latitude: 43.6789962, longitude: -79.3120158)
     }
     
     
@@ -163,21 +165,22 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         let arrow = SCNNode(geometry: SCNPyramid(width: 0.5, height: 0.5, length: 0.5))
         let cc  = getCameraCoordinate(sceneview: sceneView)
-        arrow.position = SCNVector3(cc.x+10,cc.y+0.7,cc.z-0.1)
+        arrow.position = SCNVector3(cc.x+10,cc.y,cc.z-0.1)
         arrow.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
         arrow.geometry!.firstMaterial?.diffuse.contents  = green
         let base = SCNNode(geometry: SCNBox(width: 0.3, height: 0.4, length: 0.3, chamferRadius: 0))
-        base.position = SCNVector3(cc.x+10,cc.y+1.05,cc.z-0.1)
+        base.position = SCNVector3(cc.x+10,cc.y,cc.z-0.1)
         base.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
         base.geometry!.firstMaterial?.diffuse.contents  = green
         
         let base2 = SCNNode(geometry: SCNBox(width: 0.3, height: 0.1, length: 0.3, chamferRadius: 0))
-        base2.position = SCNVector3(cc.x+10,cc.y+0.0775,cc.z-0.1)
+        base2.position = SCNVector3(cc.x+10,cc.y,cc.z-0.1)
         base2.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
         base2.geometry!.firstMaterial?.diffuse.contents  = green
         
         friendBase = base2.position
         
+        destinationLocation =  CLLocation(latitude: 43.6416526, longitude: -79.3801146)
         
         
         
@@ -211,6 +214,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 //    sceneView.scene.rootNode.addChildNode(twoPointsNode1.buildLineInTwoPointsWithRotation(
 //    from: SCNVector3(1,-1,3), to: SCNVector3( 7,11,7), radius: 0.2, color: .cyan))
     
+
+
     
 //    func locationOnEarth( lat:Double, long:Double, currentLatitude:Double, currentLongitude:Double) -> coordinate{
 //
@@ -364,6 +369,7 @@ extension SCNGeometry {
     }
 }
 
+
 func normalizeVector(_ iv: SCNVector3) -> SCNVector3 {
     let length = sqrt(iv.x * iv.x + iv.y * iv.y + iv.z * iv.z)
     if length == 0 {
@@ -448,6 +454,7 @@ extension SCNNode {
         return self
     }
 }
+
 
 
 
