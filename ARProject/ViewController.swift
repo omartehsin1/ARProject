@@ -30,8 +30,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     var myBase : SCNVector3!
     var friendBase : SCNVector3!
-    
-    
+    var destinationLocation : CLLocation!
     var locationManager = CLLocationManager()
     let regionInMeters: Double = 10000
     
@@ -76,6 +75,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.view.addSubview(button)
         self.view.addSubview(button2)
         self.view.addSubview(button3)
+        
+        
         
         
 
@@ -132,17 +133,17 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         let arrow = SCNNode(geometry: SCNPyramid(width: 0.5, height: 0.5, length: 0.5))
         let cc  = getCameraCoordinate(sceneview: sceneView)
-        arrow.position = SCNVector3(cc.x,cc.y+0.7,cc.z-0.1)
+        arrow.position = SCNVector3(cc.x,cc.y,cc.z-0.1)
         arrow.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
         arrow.geometry!.firstMaterial?.diffuse.contents  = pink
         
         let base = SCNNode(geometry: SCNBox(width: 0.3, height: 0.4, length: 0.3, chamferRadius: 0))
-        base.position = SCNVector3(cc.x,cc.y+1.05,cc.z-0.1)
+        base.position = SCNVector3(cc.x,cc.y,cc.z-0.1)
         base.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
         base.geometry!.firstMaterial?.diffuse.contents  = pink
         
         let base2 = SCNNode(geometry: SCNBox(width: 0.3, height: 0.1, length: 0.3, chamferRadius: 0))
-        base2.position = SCNVector3(cc.x,cc.y+0.0775,cc.z-0.1)
+        base2.position = SCNVector3(cc.x,cc.y,cc.z-0.1)
         base2.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
         base2.geometry!.firstMaterial?.diffuse.contents  = pink
         myBase = base2.position
@@ -150,6 +151,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.scene.rootNode.addChildNode(arrow)
         sceneView.scene.rootNode.addChildNode(base)
         sceneView.scene.rootNode.addChildNode(base2)
+        destinationLocation = CLLocation(latitude: 43.6789962, longitude: -79.3120158)
     }
     
     
@@ -163,21 +165,22 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         let arrow = SCNNode(geometry: SCNPyramid(width: 0.5, height: 0.5, length: 0.5))
         let cc  = getCameraCoordinate(sceneview: sceneView)
-        arrow.position = SCNVector3(cc.x+10,cc.y+0.7,cc.z-0.1)
+        arrow.position = SCNVector3(cc.x+10,cc.y,cc.z-0.1)
         arrow.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
         arrow.geometry!.firstMaterial?.diffuse.contents  = green
         let base = SCNNode(geometry: SCNBox(width: 0.3, height: 0.4, length: 0.3, chamferRadius: 0))
-        base.position = SCNVector3(cc.x+10,cc.y+1.05,cc.z-0.1)
+        base.position = SCNVector3(cc.x+10,cc.y,cc.z-0.1)
         base.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
         base.geometry!.firstMaterial?.diffuse.contents  = green
         
         let base2 = SCNNode(geometry: SCNBox(width: 0.3, height: 0.1, length: 0.3, chamferRadius: 0))
-        base2.position = SCNVector3(cc.x+10,cc.y+0.0775,cc.z-0.1)
+        base2.position = SCNVector3(cc.x+10,cc.y,cc.z-0.1)
         base2.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
         base2.geometry!.firstMaterial?.diffuse.contents  = green
         
         friendBase = base2.position
         
+        destinationLocation =  CLLocation(latitude: 43.6416526, longitude: -79.3801146)
         
         
         
@@ -204,33 +207,33 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     
-    func locationOnEarth( lat:Double, long:Double, currentLatitude:Double, currentLongitude:Double) -> coordinate{
-        
-        let lat = 42.292005
-        let long = -83.716203
-        
-        let xOfInput = 6371000.0 * cos(lat) * cos(long)
-        let yOfInput = 6371000.0 * cos(lat) * sin(long)
-        let zOfInput = 6371000.0 * sin(lat)
-        
-        let currentLong = currentLongitude
-        let currentLat = currentLatitude
-        
-        let xOfCurrent = 6371000.0 * cos(currentLat) * cos(currentLong)
-        let yOfCurrent = 6371000.0 * cos(currentLat) * sin(currentLong)
-        let zOfCurrent =  6371000.0 * sin(currentLat)
-        
-        let xFromCurrentToInput = xOfInput - xOfCurrent
-        let zFromCurrentToInput = zOfInput - zOfCurrent
-        let yFromCurrentToInput = yOfInput - yOfCurrent
-        
-        var loc = coordinate()
-        loc.z = zFromCurrentToInput
-        loc.y = yFromCurrentToInput
-        loc.x = xFromCurrentToInput
-        return loc
-        
-    }
+//    func locationOnEarth( lat:Double, long:Double, currentLatitude:Double, currentLongitude:Double) -> coordinate{
+//
+//        let lat = 42.292005
+//        let long = -83.716203
+//
+//        let xOfInput = 6371000.0 * cos(lat) * cos(long)
+//        let yOfInput = 6371000.0 * cos(lat) * sin(long)
+//        let zOfInput = 6371000.0 * sin(lat)
+//
+//        let currentLong = currentLongitude
+//        let currentLat = currentLatitude
+//
+//        let xOfCurrent = 6371000.0 * cos(currentLat) * cos(currentLong)
+//        let yOfCurrent = 6371000.0 * cos(currentLat) * sin(currentLong)
+//        let zOfCurrent =  6371000.0 * sin(currentLat)
+//
+//        let xFromCurrentToInput = xOfInput - xOfCurrent
+//        let zFromCurrentToInput = zOfInput - zOfCurrent
+//        let yFromCurrentToInput = yOfInput - yOfCurrent
+//
+//        var loc = coordinate()
+//        loc.z = zFromCurrentToInput
+//        loc.y = yFromCurrentToInput
+//        loc.x = xFromCurrentToInput
+//        return loc
+//
+//    }
     
     func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
         glLineWidth(20.0)
@@ -354,3 +357,4 @@ extension SCNGeometry {
         return SCNGeometry(sources: [source], elements: [element])
     }
 }
+
