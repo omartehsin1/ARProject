@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0711678A222F460E00C088E4 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07116789222F460E00C088E4 /* LocationSearchTable.swift */; };
 		CD9EAEE2222C53EE00E7277C /* FullMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9EAEE1222C53EE00E7277C /* FullMapViewController.swift */; };
 		CDDBF2EB222B48B300F7678B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDBF2EA222B48B300F7678B /* AppDelegate.swift */; };
 		CDDBF2ED222B48B300F7678B /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = CDDBF2EC222B48B300F7678B /* art.scnassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		07116789222F460E00C088E4 /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		CD9EAEE1222C53EE00E7277C /* FullMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullMapViewController.swift; sourceTree = "<group>"; };
 		CDDBF2E7222B48B300F7678B /* ARProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDDBF2EA222B48B300F7678B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				CDDBF2EC222B48B300F7678B /* art.scnassets */,
 				CDDBF2EE222B48B300F7678B /* ViewController.swift */,
 				CDDBF2F0222B48B300F7678B /* Main.storyboard */,
+				07116789222F460E00C088E4 /* LocationSearchTable.swift */,
 				CD9EAEE1222C53EE00E7277C /* FullMapViewController.swift */,
 				CDDBF2F3222B48B300F7678B /* Assets.xcassets */,
 				CDDBF2F5222B48B300F7678B /* LaunchScreen.storyboard */,
@@ -145,6 +148,7 @@
 				CDDBF2EF222B48B300F7678B /* ViewController.swift in Sources */,
 				CDDBF2EB222B48B300F7678B /* AppDelegate.swift in Sources */,
 				CD9EAEE2222C53EE00E7277C /* FullMapViewController.swift in Sources */,
+				0711678A222F460E00C088E4 /* LocationSearchTable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
