@@ -449,7 +449,5 @@ extension SCNNode {
     }
 }
 
-//extension ended.
 
-//in your code, you can like this.
 
