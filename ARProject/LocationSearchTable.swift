@@ -2,8 +2,8 @@
 //  LocationSearchTable.swift
 //  ARProject
 //
-//  Created by Omar Tehsin on 2019-03-05.
-//  Copyright © 2019 Van Luu. All rights reserved.
+//  Created by Van Luu, Omar Tehsin, David Gonzales on 2019-03-05.
+//  Copyright © 2019 Van Luu, Omar Tehsin, David Gonzales. All rights reserved.
 //
 
 import UIKit
