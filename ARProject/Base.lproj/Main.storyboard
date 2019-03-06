@@ -175,11 +175,12 @@
                     <nil name="viewControllers"/>
                     <connections>
                         <segue destination="gRc-tH-9a7" kind="relationship" relationship="rootViewController" id="jbJ-Kd-HaV"/>
+                        <segue destination="BV1-FR-VrT" kind="presentation" identifier="mapSegue" id="DSY-hB-ZQg"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3gp-XA-Ywv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1045.5999999999999" y="133.5832083958021"/>
+            <point key="canvasLocation" x="1212" y="-126"/>
         </scene>
     </scenes>
 </document>

@@ -28,6 +28,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         var y = Double()
         var z = Double()
     }
+    
+    var smallMap : MKMapView!
     var myBase : SCNVector3!
     var friendBase : SCNVector3!
     var destinationLocation : CLLocation!
@@ -53,6 +55,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
         scheduledTimerWithTimeInterval()
+        
+        smallMap = mapView
         
         let button = UIButton(frame: CGRect(x: self.view.frame.width - 100, y: self.view.frame.height - 100, width: 100, height: 50))
         button.backgroundColor = .blue

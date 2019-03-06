@@ -29,8 +29,11 @@ class FullMapViewController: UIViewController, UISearchBarDelegate {
     
     var selectedPin:MKPlacemark? = nil
     
+    var mainViewController : ViewController?
+    
 
     @IBOutlet weak var mapView: MKMapView!
+    var fullMapView : MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,10 +60,16 @@ class FullMapViewController: UIViewController, UISearchBarDelegate {
         
     }
     @objc func backTapped() {
-        navigationController?.popViewController(animated: true)
-        dismiss(animated: true, completion: nil)
+//        navigationController?.popViewController(animated: true)
+//        dismiss(animated: true, completion: nil)
+//        
+        self.fullMapView = mapView
+        performSegue(withIdentifier: "mapSegue", sender: self)
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        var vc = segue.destination as! ViewController
+        vc.mapView = self.fullMapView
+    }
     
     
     func setupLocationManager() {
